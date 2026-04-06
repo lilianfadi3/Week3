@@ -1,11 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, redirect, render_template, request
 import agent
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost:5432/taskdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("POSTGRES_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
