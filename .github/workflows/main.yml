@@ -34,8 +34,8 @@ jobs:
       # 4️⃣ Build & push frontend Docker image
       - name: Build & push frontend Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/week3/templates:latest ./
-          docker push ghcr.io/${{ github.repository_owner }}/week3/templates:latest
+          docker build -t ghcr.io/${{ github.repository_owner }}/week3-templates:latest ./
+          docker push ghcr.io/${{ github.repository_owner }}/week3-templates:latest
 
       # 5️⃣ Start stack for testing
       - name: Deploy test stack
