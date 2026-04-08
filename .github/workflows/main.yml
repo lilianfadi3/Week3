@@ -28,7 +28,7 @@ jobs:
       # 3️⃣ Build & push backend image
       - name: Build & push backend Docker image
         run: |
-          docker build -t ghcr.io/lilianfadi3/week3:latest ./
+          docker build -t ghcr.io/lilianfadi3/week3:latest .
           docker push ghcr.io/lilianfadi3/week3:latest
 
       # 4️⃣ Build & push frontend Docker image
