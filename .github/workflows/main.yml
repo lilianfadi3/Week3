@@ -3,8 +3,7 @@ name: CI/CD – Week3 (Frontend + Backend + DB)
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+
 
 jobs:
   build-test-and-push:
