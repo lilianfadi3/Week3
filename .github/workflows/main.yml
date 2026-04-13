@@ -41,6 +41,4 @@ jobs:
 
       
 
-      # 9️⃣ Cleanup
-      - name: Tear down stack
-        run: docker compose down --volumes
+    
