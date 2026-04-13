@@ -38,7 +38,7 @@ jobs:
       # 5️⃣ Start stack
       - name: Deploy test stack
         run: |
-         docker compose -f /Desktop/week3/Docker-compose.yml up -d 
+         docker compose -f /Desktop/week3/docker-compose.yml up -d 
  
       # 6️⃣ Debug logs (VERY IMPORTANT)
       - name: Show logs
