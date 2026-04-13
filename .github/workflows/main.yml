@@ -37,9 +37,6 @@ jobs:
 
       
  
-      # 6️⃣ Debug logs (VERY IMPORTANT)
-      - name: Show logs
-        run: docker compose logs
 
       # 7️⃣ Wait for backend
       - name: Backend health check
