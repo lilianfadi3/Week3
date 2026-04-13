@@ -9,18 +9,22 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Prefer full URI if provided; otherwise compose it from Postgres env vars.
+# 1) Prefer a full URI if provided (DATABASE_URL or POSTGRES_URI), otherwise compose from parts
+db_uri = os.getenv("POSTGRES_URI") or os.getenv("DATABASE_URL")
+if not db_uri:
+    db_user = os.getenv("POSTGRES_USER", "postgres")
+    db_password = os.getenv("POSTGRES_PASSWORD", "postgres")
+    db_host = os.getenv("POSTGRES_HOST", "localhost")
+    db_port = os.getenv("POSTGRES_PORT", "5432")
+    db_name = os.getenv("POSTGRES_DB", "taskdb")
+    db_uri = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
-db_user = os.getenv("POSTGRES_USER")
-db_password = os.getenv("POSTGRES_PASSWORD")
-db_host = os.getenv("POSTGRES_HOST")
-db_port = os.getenv("POSTGRES_PORT")
-db_name = os.getenv("POSTGRES_DB")
-db_uri = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+# 2) Normalize scheme in case the platform provided "postgres://..."
+if db_uri.startswith("postgres://"):
+    db_uri = db_uri.replace("postgres://", "postgresql://", 1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 db = SQLAlchemy(app)
 
 
@@ -94,6 +98,12 @@ def AI_insights():
     return render_template("index.html", tasks=tasks, ai_insight=insights_from_ai)
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
+    try:
+        with app.app_context():
+            db.create_all()
+    except Exception as e:
+        # Print a clear error so container logs show the root cause
+        print("Failed to connect to the database. Connection URI:", db_uri)
+        print("Error:", e)
+        raise
     app.run(host="0.0.0.0", port=5000, debug=True)
