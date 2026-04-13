@@ -35,10 +35,7 @@ jobs:
           docker build -t ghcr.io/lilianfadi3/week3-templates:latest ./templates
           docker push ghcr.io/lilianfadi3/week3-templates:latest
 
-      # 5️⃣ Start stack
-      - name: Deploy test stack
-        run: |
-         docker compose -f /Desktop/week3/docker-compose.yml up -d 
+      
  
       # 6️⃣ Debug logs (VERY IMPORTANT)
       - name: Show logs
