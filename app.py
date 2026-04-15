@@ -12,11 +12,11 @@ app = Flask(__name__)
 # 1) Prefer a full URI if provided (DATABASE_URL or POSTGRES_URI), otherwise compose from parts
 db_uri = os.getenv("POSTGRES_URI") or os.getenv("DATABASE_URL")
 if not db_uri:
-    db_user = os.getenv("POSTGRES_USER", "postgres")
-    db_password = os.getenv("POSTGRES_PASSWORD", "postgres")
-    db_host = os.getenv("POSTGRES_HOST", "postgres")
-    db_port = os.getenv("POSTGRES_PORT", "5432")
-    db_name = os.getenv("POSTGRES_DB", "taskdb")
+    db_user = os.getenv("POSTGRES_USER")
+    db_password = os.getenv("POSTGRES_PASSWORD")
+    db_host = os.getenv("POSTGRES_HOST")
+    db_port = os.getenv("POSTGRES_PORT")
+    db_name = os.getenv("POSTGRES_DB")
     db_uri = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 
 # 2) Normalize scheme in case the platform provided "postgres://..."
