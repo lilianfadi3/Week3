@@ -42,7 +42,7 @@
     <script>
     function updateTask(id) {
         const newName = document.getElementById("task-name").value;
-        fetch(" http://localhost:5000/tasks/ "+ id, {
+        fetch("/tasks/"+ id, {
             method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({name: newName})
