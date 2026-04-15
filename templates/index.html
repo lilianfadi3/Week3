@@ -91,7 +91,7 @@
 
     <script>
     function deleteTask(id) {
-        fetch("/tasks/" + id, { method: "DELETE" })
+        fetch("http://localhost:5000/tasks/" + id, { method: "DELETE" })
             .then(() => location.reload());
     }
 
