@@ -1,3 +1,16 @@
-.venv 
+# Python
+.venv
 .env
-__pycache__
+__pycache__/
+
+# Secrets / sensitive folders
+Vault/
+actions-runner/
+monitoring/
+
+# Scripts (be careful - optional)
+*.sh
+
+# Docker
+docker-compose.yml
+
