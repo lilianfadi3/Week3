@@ -1,29 +1,25 @@
-name: Secret Scanning (TruffleHog)
+name: TruffleHog Secret Scan
 
 on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
-  trufflehog:
+  scan:
+    name: Secrets Scan
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Checkout repository
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 2️⃣ Install TruffleHog
-      - name: Install TruffleHog
-        run: |
-          curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin
+      - name: Run TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          # أزلنا أسطر base و head لتجنب خطأ التطابق
+          extra_args: --only-verified
 
-      # 3️⃣ Run secret scan (FIXED)
-      - name: Run TruffleHog scan
-        env:
-          TRUFFLEHOG_DISABLE_UPDATE: "true"
-        run: |
-          trufflehog git file://$(pwd) --only-verified --fail
