@@ -19,5 +19,7 @@ jobs:
           curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin
 
       - name: Run scan
+        env:
+          TRUFFLEHOG_DISABLE_UPDATE: "true"
         run: |
           trufflehog git file://$(pwd) --only-verified --fail
