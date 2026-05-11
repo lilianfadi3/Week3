@@ -1,0 +1,23 @@
+name: Secret Scanning (TruffleHog)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  trufflehog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install TruffleHog
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/trufflesecurity/trufflehog/main/scripts/install.sh | sudo sh -s -- -b /usr/local/bin
+
+      - name: Run scan
+        run: |
+          trufflehog git file://$(pwd) --only-verified --fail
